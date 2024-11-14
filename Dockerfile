@@ -9,6 +9,9 @@ COPY .mvn/ .mvn
 COPY mvnw .
 COPY pom.xml .
 
+# Make mvnw executable
+RUN chmod +x mvnw
+
 # Install Maven dependencies (this avoids re-downloading dependencies every time)
 RUN ./mvnw dependency:go-offline
 
@@ -19,7 +22,7 @@ COPY src/ /app/src
 RUN ./mvnw clean package -DskipTests
 
 # Copy the JAR file from the build context into the container as app.jar
-# Ensure the path to the JAR is correct
+# Ensure the path to the JAR is correct, and this assumes the output JAR is in the target directory
 COPY target/*.jar app.jar
 
 # Set the entry point to run the Spring Boot app with Java
