@@ -1,4 +1,3 @@
-version: '3'
 services:
   jenkins:
     image: jenkins/jenkins:lts
@@ -11,9 +10,11 @@ services:
       - "50000:50000"
     volumes:
       - jenkins_home:/var/jenkins_home  # Persistent storage for Jenkins data
-      - /var/run/docker.sock:/var/run/docker.sock  # Mount the Docker socket
+      - /Users/kraipobsaengkhunthod/.docker/run/docker.sock:/var/run/docker.sock  # Custom Docker socket path
     environment:
-      DOCKER_HOST: unix:///var/run/docker.sock  # Make Docker available to Jenkins
+      - DOCKER_HOST=unix:///var/run/docker.sock  # Make Docker available to Jenkins
+    group_add:
+      - "${DOCKER_GID}"  # Add Jenkins to the Docker group
     privileged: true  # Required for Docker in Docker (optional but sometimes needed)
 
 volumes:
