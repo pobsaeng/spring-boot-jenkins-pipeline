@@ -12,9 +12,7 @@ services:
       - jenkins_home:/var/jenkins_home  # Persistent storage for Jenkins data
       - /Users/kraipobsaengkhunthod/.docker/run/docker.sock:/var/run/docker.sock  # Custom Docker socket path
     environment:
-      - DOCKER_HOST=unix:///var/run/docker.sock  # Make Docker available to Jenkins
-    group_add:
-      - docker  # Add Jenkins to the Docker group
+      DOCKER_HOST: unix:///var/run/docker.sock  # Make Docker available to Jenkins
     privileged: true  # Required for Docker in Docker (optional but sometimes needed)
 
 volumes:
