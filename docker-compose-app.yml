@@ -1,0 +1,10 @@
+services:
+  spring-boot-app:
+    build:
+      context: .  # Use the current directory as the build context
+      dockerfile: Dockerfile  # Specify the Dockerfile (assumed to be named 'Dockerfile')
+    image: spring-boot-app:latest  # Tag for the Docker image
+    container_name: spring-boot-app-container
+    ports:
+      - "8081:8081"  # Map container's port 8081 to host's port 8081
+    restart: always  # Automatically restart the container if it crashes

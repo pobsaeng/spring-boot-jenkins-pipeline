@@ -1,5 +1,12 @@
 #!/bin/bash
 
+# Step 0: Ensure proper permissions for Docker socket
+echo "Checking Docker permissions..."
+if [ ! -w /var/run/docker.sock ]; then
+  echo "Setting permissions for Docker socket..."
+  sudo chmod 666 /var/run/docker.sock
+fi
+
 # Step 1: Build the Spring Boot JAR file using Maven (this step is handled inside the Dockerfile now)
 echo "Building Spring Boot application with Maven..."
 ./mvnw clean package -DskipTests # Skips tests to speed up build
